@@ -1,0 +1,105 @@
+ol.pokemons{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  
+  ol.pokemons li{
+    margin: 0.5rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    color: #FFF;
+    height: 140px;
+  }
+  
+  ol.pokemons img{
+    max-width: 100%;
+    height: 80px;
+  }
+  
+  .pokemon{
+    display: grid;
+  }
+  
+  .number{
+    font-size: 0.75rem;
+    justify-self: end;
+  }
+  
+  .name{
+    margin: 0 0 .5rem 0;
+  }
+  
+  
+  .image{
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .types{
+    font-size: .5rem;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .type{
+    margin: .2rem .2rem;
+    padding: .25rem .5rem;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 1rem;
+    
+  }
+  
+  .grass{
+    background-color: rgb(28, 217, 154);
+  }
+  
+  .grass > .number{
+    color: rgb(0, 176, 0);
+  }
+  
+  
+  .fire{
+    background-color: rgba(255, 0, 0, 0.726);
+  }
+  
+  .fire > .number{
+    color: rgba(255, 0, 0, 0.874);
+  }
+  
+  .water{
+    background-color: lightskyblue;
+  }
+  
+  .water > .number{
+    color: rgb(73, 172, 234);
+  }
+  
+  .eletric{
+    background-color: gold;
+  }
+  
+  .eletric > .number{
+    color: rgb(219, 187, 2);
+  }
+  
+    
+  @media screen and (min-width: 380px) {
+    ol.pokemons{
+      grid-template-columns: 1fr 1fr; 
+    }
+  }
+  
+  @media screen and (min-width: 500px) {
+    ol.pokemons{
+      grid-template-columns: 1fr 1fr 1fr; 
+    }
+  }
+  
+  @media screen and (min-width: 900px) {
+    ol.pokemons{
+      grid-template-columns: 1fr 1fr 1fr 1fr; 
+    }
+  }
