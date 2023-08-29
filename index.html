@@ -19,14 +19,15 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/main.js" defer></script>
   </head>
   <body>
     <section class="content">
       <h1>Pokedex</h1>
 
-      <ol class="pokemons">
-        <li class="pokemon grass">
+      <ol id="pokemonList" class="pokemons">
+        <!-- pokemon list here -->
+        <!-- <li class="pokemon grass">
           <span class="number">#001</span>
           <span class="name">Bulbasaur</span>
           <div class="image">
@@ -159,7 +160,7 @@
               alt="Pikachu"
             />
           </div>
-        </li>
+        </li> -->
       </ol>
     </section>
   </body>
