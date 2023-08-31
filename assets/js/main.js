@@ -24,19 +24,19 @@ function convertPokemonToHtml(pokemon) {
 
 const pokemonList = document.getElementById("pokemonList");
 
-fetch(url)
-  //converte o response em formato json
-  .then((response) => response.json())
-  //pega o retorno do primeiro then e joga no segundo
-  .then((jsonBody) => jsonBody.results)
-  //pega o retorno do segundo then e joga no terceiro
-  .then((pokemons) => {
-    pokemons.forEach((pokemon) => {
-      //concatena a variavel atual com o retorno da funcao
-      pokemonList.innerHTML += convertPokemonToHtml(pokemon);
-    });
-  })
+pokeApi.getPokemons().then((pokemons) => {
+  console.log(pokemons);
+  const listItems = [];
+  pokemons.forEach((pokemon) => {
+    //concatena a variavel atual com o retorno da funcao
+    listItems.push(convertPokemonToHtml(pokemon));
+  });
+
+  console.log(listItems);
+})
+
+
   //em caso de erro retorna com o catch
-  .catch((error) => console.log(error))
+  // .catch((error) => console.log(error))
   //finally é sempre executado
-  .finally(() => console.log("Requisicão concluída"));
+  // .finally(() => console.log("Requisicão concluída"));
