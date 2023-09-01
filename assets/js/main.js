@@ -1,8 +1,3 @@
-const offset = 0;
-const limit = 10;
-const url =
-  "https://pokeapi.co/api/v2/pokemon/?offset=" + offset + "&limit=" + limit;
-
 function convertPokemonToHtml(pokemon) {
   return `
     <li class="pokemon grass">
@@ -24,15 +19,20 @@ function convertPokemonToHtml(pokemon) {
 
 const pokemonList = document.getElementById("pokemonList");
 
-pokeApi.getPokemons().then((pokemons) => {
-  console.log(pokemons);
-  const listItems = [];
-  pokemons.forEach((pokemon) => {
-    //concatena a variavel atual com o retorno da funcao
-    listItems.push(convertPokemonToHtml(pokemon));
-  });
+//pokemons = [] é uma lista vazia para caso nao retorne conteudo sempre retorne uma lista mesmo que vazia
+pokeApi.getPokemons().then((pokemons = []) => {
+  
+  // //a funcao map percorre uma lista e retorna uma nova lista
+  // const newList = pokemons.map((pokemon) => convertPokemonToHtml(pokemon));
 
-  console.log(listItems);
+  // //metodo join junta os elementos que antes estavam separados e transforma em uma string
+  // const newHtml = newList.join("");
+
+  // pokemonList.innerHTML += newHtml;
+
+  //tudo isso que esta acima pode ser resumido a uma unica linha
+
+  pokemonList.innerHTML += pokemons.map(convertPokemonToHtml).join("");
 })
 
 
