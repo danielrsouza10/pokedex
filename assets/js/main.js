@@ -5,7 +5,7 @@ function convertPokemonToHtml(pokemon) {
     <span class="name">${pokemon.name}</span>
     <div class="image">
       <div class="types">
-        ${pokemon.types.map((type) => `<span class="type">${type}</span>`).join("")}
+        ${pokemon.types.map((type) => `<span class="type ${type}">${type}</span>`).join("")}
       </div>
       <img
         src="${pokemon.photo}"
