@@ -1,3 +1,8 @@
+const buttonMore = document.getElementById('loadMore')
+let offset = 0;
+let limit = 10;
+const maxPokemonsAllowed = 151;
+
 function convertPokemonToHtml(pokemon) {
   return `
     <li class="pokemon ${pokemon.type}">
@@ -19,35 +24,26 @@ function convertPokemonToHtml(pokemon) {
 const pokemonList = document.getElementById("pokemonList");
 
 //pokemons = [] é uma lista vazia para caso nao retorne conteudo sempre retorne uma lista mesmo que vazia
-pokeApi.getPokemons().then((pokemons = []) => {
-
-  // //a funcao map percorre uma lista e retorna uma nova lista
-  // const newList = pokemons.map((pokemon) => convertPokemonToHtml(pokemon));
-
-  // //metodo join junta os elementos que antes estavam separados e transforma em uma string
-  // const newHtml = newList.join("");
-
-  // pokemonList.innerHTML += newHtml;
-
-  //tudo isso que esta acima pode ser resumido a uma unica linha
-
-  pokemonList.innerHTML += pokemons.map(convertPokemonToHtml).join("");
-})
-
-
-//em caso de erro retorna com o catch
-// .catch((error) => console.log(error))
-//finally é sempre executado
-// .finally(() => console.log("Requisicão concluída"));
-
-const buttonMore = document.getElementById('loadMore')
-let offset = 0;
-let limit = 10;
-
-buttonMore.addEventListener('click', (e) => {
-  offset += limit;
+function loadPokemons(offset, limit) {
   pokeApi.getPokemons(offset, limit).then((pokemons = []) => {
     const newHtml = pokemons.map(convertPokemonToHtml).join("");
     pokemonList.innerHTML += newHtml;
   })
+}
+
+
+loadPokemons(offset, limit);
+
+buttonMore.addEventListener('click', () => {
+  offset += limit;
+  const pokemonsListed = offset + limit;
+
+  if (pokemonsListed <= maxPokemonsAllowed) {
+    loadPokemons(offset, limit);
+  } else {
+    newLimit = maxPokemonsAllowed - offset;
+    loadPokemons(offset, newLimit);
+    buttonMore.parentElement.removeChild(buttonMore);
+  }
+
 })
