@@ -35,7 +35,19 @@ pokeApi.getPokemons().then((pokemons = []) => {
 })
 
 
-  //em caso de erro retorna com o catch
-  // .catch((error) => console.log(error))
-  //finally é sempre executado
-  // .finally(() => console.log("Requisicão concluída"));
+//em caso de erro retorna com o catch
+// .catch((error) => console.log(error))
+//finally é sempre executado
+// .finally(() => console.log("Requisicão concluída"));
+
+const buttonMore = document.getElementById('loadMore')
+let offset = 0;
+let limit = 10;
+
+buttonMore.addEventListener('click', (e) => {
+  offset += limit;
+  pokeApi.getPokemons(offset, limit).then((pokemons = []) => {
+    const newHtml = pokemons.map(convertPokemonToHtml).join("");
+    pokemonList.innerHTML += newHtml;
+  })
+})

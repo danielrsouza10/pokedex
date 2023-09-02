@@ -17,6 +17,21 @@ body {
   margin: 10px 0;
 }
 
+.buttonMore {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.buttonMore > button {
+  padding: 0.5rem;
+  color: white;
+  border-radius: 1rem;
+  background-color: purple;
+}
+
 @media screen and (min-width: 500px) {
   .content {
     max-width: 500px;
