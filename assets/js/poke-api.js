@@ -1,23 +1,21 @@
-const pokeApi = [];
+
+const pokeApi = {}
+const singlePokemonArray = {}
 
 function convertPokeApiDetailToPokemon(pokeDetail) {
     const pokemon = new Pokemon()
+    pokemon.number = pokeDetail.id
+    pokemon.name = pokeDetail.name
 
-    pokemon.number = pokeDetail.id;
-    pokemon.name = pokeDetail.name;
+    const types = pokeDetail.types.map((typeSlot) => typeSlot.type.name)
+    const [type] = types
 
-    const types = pokeDetail.types.map((typeSlot) => typeSlot.type.name);
+    pokemon.types = types
+    pokemon.type = type
 
-    //[array] = array pega o primeiro elemento do array e armazena
-    const [type] = types;
+    pokemon.photo = pokeDetail.sprites.other.dream_world.front_default
 
-    pokemon.types = types;
-    pokemon.type = type;
-
-
-    pokemon.photo = pokeDetail.sprites.other.dream_world.front_default;
-
-    return pokemon;
+    return pokemon
 }
 
 pokeApi.getPokemonDetail = (pokemon) => {
@@ -26,19 +24,37 @@ pokeApi.getPokemonDetail = (pokemon) => {
         .then(convertPokeApiDetailToPokemon)
 }
 
-pokeApi.getPokemons = (offset = 0, limit = 10) => {
-    const url =
-        "https://pokeapi.co/api/v2/pokemon/?offset=" + offset + "&limit=" + limit;
+function getPokemons(offset = 0, limit = 5) {
+    const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`
+
     return fetch(url)
-        //converte o response em formato json
         .then((response) => response.json())
-        //pega o retorno do primeiro then e joga no segundo e transforma em uma lista só com os results que queremos que sao os pokemons
         .then((jsonBody) => jsonBody.results)
-        //mapeia a lista retornada e extrai os detalhes fazendo novas requisicoes pela funcao getPokemonDetail
         .then((pokemons) => pokemons.map(pokeApi.getPokemonDetail))
-        //pega a lista de requisicoes e aguarda ate que todas as requisicoes terminem
         .then((detailRequests) => Promise.all(detailRequests))
-        //quando as requisicoes terminarem, apresente os resultados em forma de lista
         .then((pokemonsDetails) => pokemonsDetails)
+}
+
+
+function getSinglePokemon(pokemonNumber) {
+    const singlePokemonUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonNumber}`
+    console.log(singlePokemonUrl)
+    return fetch(singlePokemonUrl)
+        .then((response) => response.json())
+        .then((pokemon) => console.log(pokemon))
+    // .then((pokemon) => 
+    // .then((detailRequests) => Promise.all(detailRequests))
+    // .then((pokemonsDetails) => pokemonsDetails)
+
+
+    // .then((jsonBody) => {
+    //     const singlePokemon = new SinglePokemon()
+    //     singlePokemon.name = jsonBody.name;
+    //     console.log(singlePokemon.name)
+    //     singlePokemon.id = jsonBody.id;
+    //     console.log(singlePokemon.id)
+    // })
 
 }
+
+
